@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}Cities{% endblock %}
+{% block content2 %}
+{% for x in water %}
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <div class="card-text">
+            <p>itadakimasu bnerac</p>
+            <p>{{ x }}</p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
