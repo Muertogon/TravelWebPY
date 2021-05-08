@@ -1,6 +1,8 @@
 from flask import Flask, redirect, url_for, render_template
 from apifunc import whatCity
+from geoloc import getLoc
 import requests
+import geocoder
 
 app = Flask(__name__)
 
@@ -20,6 +22,14 @@ def cities():
 @app.route('/monuments')
 def monuments():
     return render_template("monuments.html")
+
+@app.route('/recommendations', methods=["POST", "GET"])
+def recc():
+    if request.method == "POST":
+        gotCity = request.form["nm"]
+    return render_template("recommendations.html", gotten = gotCity)
+
+print(getLoc("Jonava"))
 
 if __name__ == '__main__':
     app.debug = True
