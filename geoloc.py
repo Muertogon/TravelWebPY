@@ -1,5 +1,5 @@
 import geocoder
 def getLoc(city):
-    g = geocoder.google(city)
+    g = geocoder.osm(city)
     eee = g.latlng
     return eee

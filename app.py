@@ -1,14 +1,14 @@
 from flask import Flask, redirect, url_for, render_template
-from apifunc import whatCity
+from apifunc import whatCityWeather
 from geoloc import getLoc
-import requests
+from flask import request
 import geocoder
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("index.html", result = whatCity("New York"))
+    return render_template("index.html", result = whatCityWeather("New York"))
 
 #in NAVBAR
 @app.route('/nature')
@@ -23,15 +23,23 @@ def cities():
 def monuments():
     return render_template("monuments.html")
 
-@app.route('/recommendations', methods=["POST", "GET"])
+@app.route('/recommendations')
+def recommendations():
+    return render_template("recommendations.html")
+
+@app.route('/getrecc', methods=["POST", "GET"])
 def recc():
     if request.method == "POST":
         gotCity = request.form["nm"]
-    return render_template("recommendations.html", gotten = gotCity)
+        city = getLoc(gotCity)
 
-print(getLoc("Jonava"))
+        return render_template("recommendations.html", gotten=city)
+    else:
+        return render_template("getrecc.html")
+        
+
+
 
 if __name__ == '__main__':
     app.debug = True
     app.run(debug = True)
-
